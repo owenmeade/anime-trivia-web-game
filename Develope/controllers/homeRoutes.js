@@ -1,0 +1,51 @@
+const router = require('express').Router();
+const {Scores, User} = require('../models');
+const withAuth = require('../utils/auth');
+
+// this route needs cleaning
+router.get('/', aysnc (req, res) => {
+    try {
+        const scoreData = await Scores.findAll({
+            include: [
+                {
+                    model: User,
+                    attributes: ['name'],
+                },
+            ],
+        });
+        const scores = scoreData.map((score) => score.get({plain: true}));
+        res.render('homepage', {
+            scores,
+            logged_in: req.session.logged_in
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/trivia', withAuth, async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id, {
+            attributes: {exclude: ['password']},
+            include: [{model: Scores}],
+        });
+        const user = userData.get({plain: true});
+
+        res.render('trivia', {
+            ...user,
+            logged_in: true
+        });
+    } catch(err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/login', (req, res) => {
+    if (req.session.logged_in) {
+      res.redirect('/trivia');
+      return;
+    }
+    res.render('login');
+  });
+  
+module.exports = router;
