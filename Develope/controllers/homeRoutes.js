@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const {Scores, User} = require('../models');
-const withAuth = require('../utils/auth');
+const withAuth = require('../utils/helpers/auth');
 
 // this route needs cleaning
-router.get('/', aysnc (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const scoreData = await Scores.findAll({
             include: [
