@@ -2,20 +2,9 @@ const router = require('express').Router();
 const {Scores, User} = require('../models');
 const withAuth = require('../utils/helpers/auth');
 
-// this route needs cleaning
 router.get('/', async (req, res) => {
     try {
-        const scoreData = await Scores.findAll({
-            include: [
-                {
-                    model: User,
-                    attributes: ['name'],
-                },
-            ],
-        });
-        const scores = scoreData.map((score) => score.get({plain: true}));
         res.render('homepage', {
-            scores,
             logged_in: req.session.logged_in
         });
     } catch (err) {
