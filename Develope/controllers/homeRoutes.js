@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {Scores, User} = require('../models');
 const withAuth = require('../utils/helpers/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
         res.render('homepage', {
             logged_in: req.session.logged_in
