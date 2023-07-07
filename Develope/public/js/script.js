@@ -133,8 +133,13 @@ function shuffle(array) {
   return array;
 }
 
+//Event listener for start button
+document.getElementById('startButton').addEventListener("click", () => {
+//Start initial trivia questions
+getTrivia();
+});
+
 //Event listener for answer submission
 document.getElementById("submit").addEventListener("click", validateAnswer);
 
-//Start initial trivia questions
-getTrivia();
+
