@@ -11,6 +11,7 @@ function getTrivia() {
         const question = data.results[level - 1].question;
         const incorrectAnswers = data.results[level - 1].incorrect_answers;
         const correctAnswer = data.results[level - 1].correct_answer;
+        console.log(data.results)
 
         //Display the question
         document.getElementById("question").textContent = question;
