@@ -1,0 +1,16 @@
+<div class="trivia-container">
+  {{#each questions as |question|}}
+    <div class="question">
+      <h2>{{question}}</h2>
+      <ul class="choices">
+        {{#each answers as |answer|}}
+          <li>{{answer}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/each}}
+</div>
+<div class="status">
+    <p>Level: <span id="level">{{level}}</span></p>
+    <p>Strikes: <span id="strikeCount">{{strikes}}</span></p>
+</div>
