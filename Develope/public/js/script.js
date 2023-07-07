@@ -44,6 +44,15 @@ function getTrivia() {
   );
 }
 
+//Event listener for start button
+document.getElementById("startButton").addEventListener("click", () => {
+  //Start initial trivia questions
+  getTrivia();
+});
+
+//Event listener for answer submission
+document.getElementById("submit").addEventListener("click", validateAnswer);
+
 function selectAnswer(choice) {
   if (!choice.classList.contains("selected")) {
     const selectedChoices = document.querySelectorAll("#choices li.selected");
@@ -132,14 +141,3 @@ function shuffle(array) {
   }
   return array;
 }
-
-//Event listener for start button
-document.getElementById('startButton').addEventListener("click", () => {
-//Start initial trivia questions
-getTrivia();
-});
-
-//Event listener for answer submission
-document.getElementById("submit").addEventListener("click", validateAnswer);
-
-
