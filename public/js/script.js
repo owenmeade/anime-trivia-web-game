@@ -14,7 +14,7 @@ function getTrivia() {
         console.log(data.results)
 
         //Display the question
-        document.getElementById("question").textContent = question;
+        document.getElementById("question").innerHTML = question;
 
         //Show the answers, including incorrect answers and correct answers
         const answers = [...incorrectAnswers, correctAnswer];
@@ -28,7 +28,7 @@ function getTrivia() {
 
         shuffleAnswers.forEach((answer) => {
           const choice = document.createElement("li");
-          choice.textContent = answer;
+          choice.innerHTML = answer;
           choice.addEventListener("click", () => {
             selectAnswer(choice, correctAnswer);
           });
@@ -47,6 +47,10 @@ function getTrivia() {
 
 //Event listener for start button
 document.getElementById("startButton").addEventListener("click", () => {
+  // Hide the startKey main section
+  document.querySelector(".startKey").style.display = "none";
+  // Display the trivia section
+  document.querySelector(".trivia").style.display = "block";
   //Start initial trivia questions
   getTrivia();
 });
@@ -73,7 +77,7 @@ function validateAnswer() {
 
   choices.forEach((choice) => {
     if (choice.classList.contains("selected")) {
-      selectedAnswer = choice.textContent;
+      selectedAnswer = choice.innerHTML;
     }
   });
 

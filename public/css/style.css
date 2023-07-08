@@ -27,13 +27,22 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid black;
-    margin: 1rem;
-    font-size: 2rem;
+    border: 2px solid black;
+    padding: .5rem;
+    font-size: 1.5rem;
+    margin-bottom: 5rem;
   }
 
   main {
+    margin: 1rem;
+    padding: 1rem;
     border: 3px solid black;
+
+  }
+
+  main.startKey {
+    margin: 2rem;
+    padding: 2rem;
   }
 
   div {
@@ -41,7 +50,29 @@
   }
 
   div.welcome {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+
+  div.trivia {
+    margin-bottom: 5rem;
+  }
+
+  .trivia {
+    display: none;
+  }
+
+  li {
+    margin: 1.5rem;
+  }
+
+  div.scoreBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid black;
+    margin: 1rem;
+    padding: .5rem;
   }
 
   .form {
@@ -58,11 +89,11 @@
   }
 
   form.form.login-form {
-    border: 1px solid black;
+    border: 2px solid black;
   }
 
   form.form.signup-form {
-    border: 1px solid black;
+    border: 2px solid black;
   }
 
 
@@ -70,4 +101,12 @@
     justify-content: center;
   }
 
+  #startButton {
+    transform: scale(1.2);
+  }
+
+  #submit {
+    transform: scale(1.3);
+  }
+  
   
