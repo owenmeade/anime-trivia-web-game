@@ -14,7 +14,7 @@ function getTrivia() {
         console.log(data.results)
 
         //Display the question
-        document.getElementById("question").textContent = question;
+        document.getElementById("question").textContent = question.replaceAll('&quot;', '"');
 
         //Show the answers, including incorrect answers and correct answers
         const answers = [...incorrectAnswers, correctAnswer];
@@ -23,15 +23,16 @@ function getTrivia() {
         const shuffleAnswers = shuffle(answers);
 
         //Display answers under choices
-        const choiceContainer = document.getElementById("choices");
+        const choiceContainer = document.getElementById("choices-container");
         choiceContainer.innerHTML = "";
 
         shuffleAnswers.forEach((answer) => {
-          const choice = document.createElement("li");
+          const choice = document.createElement("button");
           choice.textContent = answer;
+          choice.classList.add("choice");
           choice.addEventListener("click", () => {
-            selectAnswer(choice, correctAnswer);
-          });
+            selectAnswer(choice);
+      });
           choiceContainer.appendChild(choice);
         });
         clearSelectedChoice();
@@ -43,7 +44,7 @@ function getTrivia() {
           "Failed to fetch trivia questions.";
       })
   );
-}
+    } 
 
 //Event listener for start button
 document.getElementById("startButton").addEventListener("click", () => {
@@ -59,13 +60,13 @@ function selectAnswer(choice) {
     const selectedChoices = document.querySelectorAll("#choices li.selected");
 
     if (selectedChoices.length > 0) {
-      selectedChoices.forEach((selectedChoice) => {
+    selectedChoices.forEach((selectedChoice) => {
         selectedChoice.classList.remove("selected");
       });
     }
-    choice.classList.add("selected");
+      choice.classList.add("selected");
+    }
   }
-}
 
 function validateAnswer() {
   const choices = document.querySelectorAll("#choices li");
@@ -74,17 +75,17 @@ function validateAnswer() {
   choices.forEach((choice) => {
     if (choice.classList.contains("selected")) {
       selectedAnswer = choice.textContent;
-    }
-  });
+      }
+    });
 
-  if (selectedAnswer) {
+      if (selectedAnswer) {
     //Retrieves the correct answer from API based on current level
     const correctAnswer = data.results[level - 1].correct_answer;
 
     //Check if selected answer is correct
-    if (selectedAnswer === correctAnswer) {
-      level++;
-      document.getElementById("level").textContent = `Level ${level}`;
+        if (selectedAnswer === correctAnswer) {
+          level++;
+          document.getElementById("level").textContent = `Level ${level}`;
 
       //Check if all levels have been completed
       if (level > 10) {
