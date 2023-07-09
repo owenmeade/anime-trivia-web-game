@@ -1,6 +1,7 @@
 const api = "https://opentdb.com/api.php?amount=10&category=31";
-const level = 1;
+let level = 1;
 const strikes = 0;
+let correctAnswer;
 
 function getTrivia() {
   fetch(api).then((response) =>
@@ -10,7 +11,7 @@ function getTrivia() {
         //Retrieve question, incorrect answers, and correct answer based on current level
         const question = data.results[level - 1].question;
         const incorrectAnswers = data.results[level - 1].incorrect_answers;
-        const correctAnswer = data.results[level - 1].correct_answer;
+        correctAnswer = data.results[level - 1].correct_answer;
         console.log(data.results)
 
         //Display the question
@@ -20,18 +21,18 @@ function getTrivia() {
         const answers = [...incorrectAnswers, correctAnswer];
 
         //Shuffle the answers
-        const shuffleAnswers = shuffle(answers);
+        // const shuffleAnswers = shuffle(answers);
 
         //Display answers under choices
         const choiceContainer = document.getElementById("choices-container");
         choiceContainer.innerHTML = "";
 
-        shuffleAnswers.forEach((answer) => {
+        answers.forEach((answer) => {
           const choice = document.createElement("button");
           choice.textContent = answer;
           choice.classList.add("choice");
-          choice.addEventListener("click", () => {
-            selectAnswer(choice);
+          choice.addEventListener("click", (event) => {
+            selectAnswer(event.target, correctAnswer);
       });
           choiceContainer.appendChild(choice);
         });
@@ -55,21 +56,21 @@ document.getElementById("startButton").addEventListener("click", () => {
 //Event listener for answer submission
 document.getElementById("submit").addEventListener("click", validateAnswer);
 
-function selectAnswer(choice) {
+function selectAnswer(choice, correctAnswer) {
   if (!choice.classList.contains("selected")) {
-    const selectedChoices = document.querySelectorAll("#choices li.selected");
+    const selectedChoices = document.querySelectorAll(".choice.selected");
 
-    if (selectedChoices.length > 0) {
+    
     selectedChoices.forEach((selectedChoice) => {
         selectedChoice.classList.remove("selected");
       });
-    }
+    
       choice.classList.add("selected");
     }
   }
 
 function validateAnswer() {
-  const choices = document.querySelectorAll("#choices li");
+  const choices = document.querySelectorAll(".choice");
   let selectedAnswer;
 
   choices.forEach((choice) => {
@@ -80,7 +81,7 @@ function validateAnswer() {
 
       if (selectedAnswer) {
     //Retrieves the correct answer from API based on current level
-    const correctAnswer = data.results[level - 1].correct_answer;
+    // const correctAnswer = data.results[level - 1].correct_answer;
 
     //Check if selected answer is correct
         if (selectedAnswer === correctAnswer) {
@@ -99,7 +100,7 @@ function validateAnswer() {
     } else {
       //Increment strikes
       strikes++;
-      document.getElementById("strikeCount").textContent = strikes;
+      document.getElementById("strikeCount").textContent = `Strikes: ${strikes}`;
 
       //Checks if player has reached maximum strikes
       if (strikes >= 3) {
@@ -121,25 +122,25 @@ function validateAnswer() {
 }
 
 function clearSelectedChoice() {
-  const selectedChoices = document.querySelectorAll("#choices li.selected");
+  const selectedChoices = document.querySelectorAll(".choice.selected");
   selectedChoices.forEach((selectedChoice) => {
     selectedChoice.classList.remove("selected");
   });
 }
 
 //Helper funtion to shuffle answers
-function shuffle(array) {
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
+// function shuffle(array) {
+//   let currentIndex = array.length;
+//   let temporaryValue;
+//   let randomIndex;
 
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+//   while (currentIndex !== 0) {
+//     randomIndex = Math.floor(Math.random() * currentIndex);
+//     currentIndex -= 1;
 
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-  return array;
-}
+//     temporaryValue = array[currentIndex];
+//     array[currentIndex] = array[randomIndex];
+//     array[randomIndex] = temporaryValue;
+//   }
+//   return array;
+// }
