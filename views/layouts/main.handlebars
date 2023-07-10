@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/Develope/public/css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Trivia</title>
@@ -9,22 +8,22 @@
 </head>
 <body>
     <div>
-        <header class="display-flex align-center">
-            <h1 class = "test">🏯Anime Trivia🏯</h1>
+        <header>
+            <h1>🏯Anime Trivia🏯</h1>
         </header>
         <main class="">
             {{{ body }}}
-            <div>
+            <div class="trivia" style="display: none;">
                 <h2 id="question"></h2>
                 <ul id="choices-container"></ul>
             </div>
-            <div>
+            <div class = "scoreBox">
                 <p id="level">Level 1</p>
                 <p id="strikeCount">Strikes: 0</p>
             </div>
             <button id="submit">Submit</button>
         </main>
     </div>
-    <script src="/Develope/public/js/script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
