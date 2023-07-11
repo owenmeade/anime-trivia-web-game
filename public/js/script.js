@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
         choiceContainer.innerHTML = "";
 
         shuffleAnswers.forEach((answer) => {
-          const choice = document.createElement("li");
+          const choice = document.createElement("button");
           choice.innerHTML = answer;
           choice.addEventListener("click", () => {
-            selectAnswer(choice, correctAnswer);
+            selectAnswer(choice);
           });
           choiceContainer.appendChild(choice);
         });
