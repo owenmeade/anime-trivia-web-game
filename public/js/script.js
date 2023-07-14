@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   function selectAnswer(choice) {
     if (!choice.classList.contains("selected")) {
-      const selectedChoices = document.querySelectorAll("#choices li.selected");
+      const selectedChoices = document.querySelectorAll("#choices button.selected");
 
       if (selectedChoices.length > 0) {
         selectedChoices.forEach((selectedChoice) => {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function validateAnswer() {
-    const choices = document.querySelectorAll("#choices li");
+    const choices = document.querySelectorAll("#choices button");
     let selectedAnswer;
   
     choices.forEach((choice) => {
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   function clearSelectedChoice() {
-    const selectedChoices = document.querySelectorAll("#choices li.selected");
+    const selectedChoices = document.querySelectorAll("#choices button.selected");
     selectedChoices.forEach((selectedChoice) => {
       selectedChoice.classList.remove("selected");
     });
