@@ -99,6 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
       // Checks if player has reached maximum strikes
       if (strikes >= 3) {
         document.getElementById("question").textContent = "Game Over!";
+        document.getElementById("retryButton").style.display = "block";
+        document.getElementById("retryButton").addEventListener("click", () => {
+          level = 1;
+          strikes = 0;
+          getTrivia();
+          document.getElementById("retryButton").style.display = "none";
+        });
+      
 
         // // Hide choices and submit button
         // document.getElementById("choices").style.display = "none";
@@ -113,6 +121,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (level >= 10) {
         document.getElementById("question").textContent =
           "Congratulations! You passed all levels!";
+          document.getElementById("retryButton").style.display = "block";
+          document.getElementById("retryButton").addEventListener("click", () => {
+            level = 1;
+            strikes = 0;
+            getTrivia();
+            document.getElementById("retryButton").style.display = "none";
+          });
 
         // // Hide choices, and submit button
         // document.getElementById("choices").style.display = "none";
