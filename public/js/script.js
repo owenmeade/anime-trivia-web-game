@@ -31,13 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
           const choice = document.createElement("button");
           choice.innerHTML = answer;
           choice.addEventListener("click", () => {
-            selectAnswer(choice);
+            selectAnswer(choice, correctAnswer);
           });
           choiceContainer.appendChild(choice);
         });
 
         document.getElementById("level").textContent = `Level ${level}`;
-        document.getElementById("strikeCount").textContent = strikes;
+        document.getElementById("strikeCount").textContent = `Strike ${strikes}`;
         clearSelectedChoice();
       })
       .catch((error) => {
@@ -47,21 +47,43 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  //Event listener for start button
+  // Helper function to reset the game state
+  function resetGame() {
+    level = 1;
+    strikes = 0;
+    document.getElementById("question").innerHTML = "";
+    document.getElementById("choices").innerHTML = "";
+    document.getElementById("level").textContent = "";
+    document.getElementById("strikeCount").textContent = "";
+
+    // Reset display properties for choices and submit button
+    document.getElementById("choices").style.display = "flex";
+    document.getElementById("submit").style.display = "block";
+  }
+
+  // Event listener for start button
   document.getElementById("startButton").addEventListener("click", () => {
+    // Hide the entire container
+    // document.querySelector(".container").style.display = "none";
     // Hide the startKey main section
     document.querySelector(".startKey").style.display = "none";
     // Display the trivia section
-    document.querySelector(".trivia").style.display = "block";
-    //Start initial trivia questions
+    document.querySelector(".trivia").style.display = "flex";
+    //Display the scoreBox
+    document.querySelector(".scoreBox").style.display = "flex";
+
+    // Reset the game state
+    resetGame();
+
+    // Start initial trivia questions
     getTrivia();
   });
 
-  //Event listener for answer submission
+  // Event listener for answer submission
   document.getElementById("submit").addEventListener("click", () => {
     validateAnswer();
   });
-  
+
   function selectAnswer(choice) {
     if (!choice.classList.contains("selected")) {
       const selectedChoices = document.querySelectorAll("#choices button.selected");
@@ -78,66 +100,43 @@ document.addEventListener("DOMContentLoaded", () => {
   function validateAnswer() {
     const choices = document.querySelectorAll("#choices button");
     let selectedAnswer;
-  
+
     choices.forEach((choice) => {
       if (choice.classList.contains("selected")) {
         selectedAnswer = choice.innerHTML;
       }
     });
-  
+
     if (selectedAnswer) {
       // Retrieves the correct answer from API based on current level
       const correctAnswer = data.results[level - 1].correct_answer;
-  
+
       // Check if selected answer is correct
       if (selectedAnswer === correctAnswer) {
         level++; // Increase the level
       } else {
         strikes++; // Increase the number of strikes
       }
-  
+
       // Checks if player has reached maximum strikes
       if (strikes >= 3) {
-        document.getElementById("question").textContent = "Game Over!";
-        document.getElementById("retryButton").style.display = "block";
-        document.getElementById("retryButton").addEventListener("click", () => {
-          level = 1;
-          strikes = 0;
-          getTrivia();
-          document.getElementById("retryButton").style.display = "none";
-        });
-      
-
-        // // Hide choices and submit button
-        // document.getElementById("choices").style.display = "none";
-        // document.getElementById("submit").style.display = "none";
-        // // Display the start button
-        // document.getElementById("startButton").style.display = "block";
-
+        document.getElementById("question").textContent = "Press Start to try again!";
+        document.getElementById("choices").style.display = "none";
+        document.getElementById("submit").style.display = "none";
+        document.querySelector(".startKey").style.display = "block";
         return;
       }
-  
+
       // Check if all levels have been completed
       if (level >= 10) {
         document.getElementById("question").textContent =
           "Congratulations! You passed all levels!";
-          document.getElementById("retryButton").style.display = "block";
-          document.getElementById("retryButton").addEventListener("click", () => {
-            level = 1;
-            strikes = 0;
-            getTrivia();
-            document.getElementById("retryButton").style.display = "none";
-          });
-
-        // // Hide choices, and submit button
-        // document.getElementById("choices").style.display = "none";
-        // document.getElementById("submit").style.display = "none";
-        // // Display the start button
-        // document.getElementById("startButton").style.display = "block";
-
+        document.getElementById("choices").style.display = "none";
+        document.getElementById("submit").style.display = "none";
+        document.querySelector(".startKey").style.display = "block";
         return;
       }
-  
+
       // Fetch the next trivia question
       getTrivia();
     } else {
@@ -145,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Please select an answer");
     }
   }
-  
 
   function clearSelectedChoice() {
     const selectedChoices = document.querySelectorAll("#choices button.selected");
@@ -154,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //Helper funtion to shuffle answers
+  //Helper function to shuffle answers
   function shuffle(array) {
     let currentIndex = array.length;
     let temporaryValue;
