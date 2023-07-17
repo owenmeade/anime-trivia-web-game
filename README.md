@@ -45,3 +45,7 @@
   ## Thoughts From the Devs
 
   Rest in piece Sarah's "C" Key
+
+  ## Link
+
+[](https://anime-trivia-afe9a77ab61d.herokuapp.com/login)
