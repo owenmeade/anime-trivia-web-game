@@ -48,4 +48,4 @@
 
   ## Link
 
-[](https://anime-trivia-afe9a77ab61d.herokuapp.com/login)
+[Anime Trivia](https://anime-trivia-afe9a77ab61d.herokuapp.com/login)
